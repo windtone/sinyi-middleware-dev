@@ -235,8 +235,9 @@ exports.tagCard = xItem => {
 	let suggestions = {
 		platform: 'ACTIONS_ON_GOOGLE',
 		suggestions: rep,
-		linkOutSuggestion: linkOut,
 	}
+
+	if (linkOut) suggestions.linkOutSuggestion = linkOut
 
 	// let list = []
 	// list.push(suggestions)
