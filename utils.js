@@ -205,16 +205,20 @@ exports.titleList = (xTitle, cards) => {
 // 標籤模式(改好了)
 exports.tagCard = xItem => {
 	let rep = { suggestions: [] }
-	let linkOut = {}
+	let linkOut = undefined
 	console.log(xItem)
 	xItem.forEach(item => {
 		if (item.url) {
+			// linkOut = {
+			// 	platform: 'ACTIONS_ON_GOOGLE',
+			// 	linkOutSuggestion: {
+			// 		destinationName: item.title,
+			// 		uri: item.url,
+			// 	},
+			// }
 			linkOut = {
-				platform: 'ACTIONS_ON_GOOGLE',
-				linkOutSuggestion: {
-					destinationName: item.title,
-					uri: item.url,
-				},
+				destinationName: item.title,
+				uri: item.url,
 			}
 		} else {
 			rep.suggestions.push({
@@ -232,10 +236,10 @@ exports.tagCard = xItem => {
 		platform: 'ACTIONS_ON_GOOGLE',
 		suggestions: rep,
 	}
-
+	if (linkOut) suggestions.linkOutSuggestion = linkOut
 	let list = []
 	list.push(suggestions)
-	if (linkOut) list.push(linkOut)
+	//	if (linkOut) list.push(linkOut)
 	console.log('list')
 	console.log(list)
 	return list
