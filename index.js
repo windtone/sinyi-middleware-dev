@@ -29,8 +29,6 @@ app.post('/', (req, res, next) => {
 		'Content-Type': 'application/json',
 	}
 
-	console.log(content.originalDetectIntentRequest.payload.inputs)
-
 	//  如果有定位訊息統一傳送
 	if (conv.checkUserLocation(content)) {
 		mLocation = conv.getUserLocation(content)
