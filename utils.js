@@ -209,16 +209,12 @@ exports.tagCard = xItem => {
 	console.log(xItem)
 	xItem.forEach(item => {
 		if (item.url) {
-			// linkOut = {
-			//   platform: 'ACTIONS_ON_GOOGLE',
-			//   linkOutSuggestion: {
-			//     destinationName: item.title,
-			//     uri: item.url
-			//   }
-			// }
 			linkOut = {
-				destinationName: item.title,
-				uri: item.url,
+				platform: 'ACTIONS_ON_GOOGLE',
+				linkOutSuggestion: {
+					destinationName: item.title,
+					uri: item.url,
+				},
 			}
 		} else {
 			rep.suggestions.push({
@@ -237,14 +233,11 @@ exports.tagCard = xItem => {
 		suggestions: rep,
 	}
 
-	if (linkOut) suggestions.linkOutSuggestion = linkOut
-
 	let list = []
 	list.push(suggestions)
-	// if (linkOut) list.push(linkOut)
-	// console.log('list')
-	// console.log(list)
-	// return list
+	if (linkOut) list.push(linkOut)
+	console.log('list')
+	console.log(list)
 	return list
 }
 
