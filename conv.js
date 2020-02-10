@@ -1,9 +1,5 @@
 exports.checkUserLocation = content => {
-	return (
-		!(content.queryResult && content.queryResult.queryText) &&
-		!content.originalDetectIntentRequest.payload.inputs[0].rawInputs[0].query &&
-		content.originalDetectIntentRequest.payload.device
-	)
+	return !(content.queryResult && content.queryResult.queryText) && content.originalDetectIntentRequest.payload.device
 }
 
 exports.getUserLocation = content => {
