@@ -30,14 +30,16 @@ app.post('/', (req, res, next) => {
 	}
 
 	//  如果有定位訊息統一傳送
-	if (!(content.queryResult && content.queryResult.queryText) && content.originalDetectIntentRequest.payload.device) {
+	if (conv.checkUserLocation(content)) {
 		mLocation = conv.getUserLocation(content)
-		let zipCode = content.originalDetectIntentRequest.payload.device.location.zipCode
-		let formattedAddress = content.originalDetectIntentRequest.payload.device.location.formattedAddress.split(',')
+		let zipCode = mLocation.zipCode
+		let formattedAddress = mLocation.formattedAddress.split(',')
 		let city = formattedAddress[formattedAddress.length - 1].replace(/(\d)+/g, '')
 		let area = formattedAddress[formattedAddress.length - 2]
+
 		repText = stringUtils.isNullOrEmpty(zipCode) ? '@gpsnofound' : `${city}${area}`
-		console.log(content.originalDetectIntentRequest.payload.device.location)
+
+		console.log(mLocation)
 	}
 
 	try {
