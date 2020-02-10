@@ -21,144 +21,137 @@ const URL_API = config.URL_API
 
 //  接收 AOG 傳來的訊息
 app.post('/', (req, res, next) => {
-  let mMsgType = 1
-  let mLocation = {}
-  let repText = ''
-  let content = req.body
-  let headers = {
-    'Content-Type': 'application/json'
-  }
-  
-  //  如果有定位訊息統一傳送
-  if (!(content.queryResult && content.queryResult.queryText) && content.originalDetectIntentRequest.payload.device) {
-    mLocation = conv.getUserLocation(content)
-    let zipCode = content.originalDetectIntentRequest.payload.device.location.zipCode
-    let formattedAddress = content.originalDetectIntentRequest.payload.device.location.formattedAddress.split(',')
-    let city = formattedAddress[formattedAddress.length - 1].replace(/(\d)+/g, '')
-    let area = formattedAddress[formattedAddress.length - 2]
-    repText = stringUtils.isNullOrEmpty(zipCode) ? '@gpsnofound' : `${city}${area}`
-  }
+	let mMsgType = 1
+	let mLocation = {}
+	let repText = ''
+	let content = req.body
+	let headers = {
+		'Content-Type': 'application/json',
+	}
 
-  try {
-    repText =
-      repText ||
-      content.queryResult.queryText ||
-      content.originalDetectIntentRequest.payload.inputs[0].rawInputs[0].query
-  } catch (error) {}
+	//  如果有定位訊息統一傳送
+	if (!(content.queryResult && content.queryResult.queryText) && content.originalDetectIntentRequest.payload.device) {
+		mLocation = conv.getUserLocation(content)
+		let zipCode = content.originalDetectIntentRequest.payload.device.location.zipCode
+		let formattedAddress = content.originalDetectIntentRequest.payload.device.location.formattedAddress.split(',')
+		let city = formattedAddress[formattedAddress.length - 1].replace(/(\d)+/g, '')
+		let area = formattedAddress[formattedAddress.length - 2]
+		repText = stringUtils.isNullOrEmpty(zipCode) ? '@gpsnofound' : `${city}${area}`
+		console.log(content.originalDetectIntentRequest.payload.device.location)
+	}
 
-  if (!repText) repText = '@relisten'
+	try {
+		repText =
+			repText ||
+			content.queryResult.queryText ||
+			content.originalDetectIntentRequest.payload.inputs[0].rawInputs[0].query
+	} catch (error) {}
 
-  //  傳送訊息到 Flow
-  let payload = {
-    message: {
-      type: mMsgType,
-      text: repText,
-      location: mLocation
-    },
-    sessionId: content.session
-  }
+	if (!repText) repText = '@relisten'
 
-  fetch(URL_API, {
-    method: 'POST',
-    headers: headers,
-    body: JSON.stringify(payload)
-  })
-    .then(response => response.json())
-    .then(handleRequest)
-    .catch(error => {
-      console.log(error)
-    })
+	//  傳送訊息到 Flow
+	let payload = {
+		message: {
+			type: mMsgType,
+			text: repText,
+			location: mLocation,
+		},
+		sessionId: content.session,
+	}
 
-  function handleRequest(repJson) {
-    //  傳回 AOG
-    try {
-      let rep = {
-        fulfillmentMessages: []
-      }
+	fetch(URL_API, {
+		method: 'POST',
+		headers: headers,
+		body: JSON.stringify(payload),
+	})
+		.then(response => response.json())
+		.then(handleRequest)
+		.catch(error => {
+			console.log(error)
+		})
 
-      let sendLocation = false
+	function handleRequest(repJson) {
+		//  傳回 AOG
+		try {
+			let rep = {
+				fulfillmentMessages: [],
+			}
 
-      repJson.messages.forEach(item => {
-        switch (item.type) {
-          //  一般對話
-          case 1:
-            rep.fulfillmentMessages.push(utils.replayTalk(item.text))
-            break
-          // 貼圖
-          case 3:
-            rep.fulfillmentMessages.push(utils.replayTalk(item.title))
-            rep.fulfillmentMessages.push(
-              utils.baseCard(item.title, item.alt, item.imgUrl, item.linkurl)
-            )
-            break
-          //  超連結窗
-          case 5:
-            rep.fulfillmentMessages.push(utils.replayTalk('其他服務'))
-            let mNode = { items: [] }
-            utils.browseCarouselCard(mNode, item)
+			let sendLocation = false
 
-            let reply = {
-              type: 5,
-              text: '昕力資訊',
-              title: '昕力資訊',
-              url: 'https://tpu.thinkpower.com.tw/tpu/'
-            }
-            utils.browseCarouselCard(mNode, reply)
-            mNode = utils.pushBrowseCarouselCard(mNode)
-            rep.fulfillmentMessages.push(mNode)
-            break
-          // 牌卡
-          case 6:
-            if (item.data[0].cTextType === '98') {
-              // rep.fulfillmentMessages.push(
-              //   utils.replayTalk(item.data[0].cTitle)
-              // )
-              rep.fulfillmentMessages.push(
-                utils.urlListCard('為你找到以下符合的物件', item.data)
-              )
-            } else {
-              rep.fulfillmentMessages.push(utils.replayTalk('主題找屋'))
-              rep.fulfillmentMessages.push(
-                utils.titleList('主題找屋', item.data)
-              )
-            }
-            break
-          case 9:
-              let ans = conv.askPermission(
-                ['NAME', 'DEVICE_PRECISE_LOCATION', 'DEVICE_COARSE_LOCATION'],
-                '為了提供更精準的訊息'
-              )
-              res.status(200).send(ans)
-              sendLocation = true
-            break
-          // Tag 回應
-          case 13:
-            if (item.data.length > 0) {
-              let arr = utils.tagCard(item.data)
-              arr.forEach(item => {
-                rep.fulfillmentMessages.push(item)
-              })
-            }
-            break
-          //  renew
-          case 15:
-            rep.fulfillmentMessages.push(utils.replayTalk('再見'))
-            rep.fulfillmentMessages.push(utils.replayTalk(utils.byebye()))
-            break
-        }
-      })
+			repJson.messages.forEach(item => {
+				switch (item.type) {
+					//  一般對話
+					case 1:
+						rep.fulfillmentMessages.push(utils.replayTalk(item.text))
+						break
+					// 貼圖
+					case 3:
+						rep.fulfillmentMessages.push(utils.replayTalk(item.title))
+						rep.fulfillmentMessages.push(utils.baseCard(item.title, item.alt, item.imgUrl, item.linkurl))
+						break
+					//  超連結窗
+					case 5:
+						rep.fulfillmentMessages.push(utils.replayTalk('其他服務'))
+						let mNode = { items: [] }
+						utils.browseCarouselCard(mNode, item)
 
-      if(!sendLocation) res.status(200).send(rep)
-      return next()
-    } catch (error) {
-      console.warn(error)
+						let reply = {
+							type: 5,
+							text: '昕力資訊',
+							title: '昕力資訊',
+							url: 'https://tpu.thinkpower.com.tw/tpu/',
+						}
+						utils.browseCarouselCard(mNode, reply)
+						mNode = utils.pushBrowseCarouselCard(mNode)
+						rep.fulfillmentMessages.push(mNode)
+						break
+					// 牌卡
+					case 6:
+						if (item.data[0].cTextType === '98') {
+							// rep.fulfillmentMessages.push(
+							//   utils.replayTalk(item.data[0].cTitle)
+							// )
+							rep.fulfillmentMessages.push(utils.urlListCard('為你找到以下符合的物件', item.data))
+						} else {
+							rep.fulfillmentMessages.push(utils.replayTalk('主題找屋'))
+							rep.fulfillmentMessages.push(utils.titleList('主題找屋', item.data))
+						}
+						break
+					case 9:
+						let ans = conv.askPermission(
+							['NAME', 'DEVICE_PRECISE_LOCATION', 'DEVICE_COARSE_LOCATION'],
+							'為了提供更精準的訊息'
+						)
+						res.status(200).send(ans)
+						sendLocation = true
+						break
+					// Tag 回應
+					case 13:
+						if (item.data.length > 0) {
+							let arr = utils.tagCard(item.data)
+							arr.forEach(item => {
+								rep.fulfillmentMessages.push(item)
+							})
+						}
+						break
+					//  renew
+					case 15:
+						rep.fulfillmentMessages.push(utils.replayTalk('再見'))
+						rep.fulfillmentMessages.push(utils.replayTalk(utils.byebye()))
+						break
+				}
+			})
 
-      res.sendStatus(403)
-      return next()
-    }
-  }
+			if (!sendLocation) res.status(200).send(rep)
+			return next()
+		} catch (error) {
+			console.warn(error)
+
+			res.sendStatus(403)
+			return next()
+		}
+	}
 })
 
-app.listen(PORT, () =>
-  console.log(`webhook starting at http://localhost:${PORT}`)
-)
+app.listen(PORT, () => console.log(`webhook starting at http://localhost:${PORT}`))
