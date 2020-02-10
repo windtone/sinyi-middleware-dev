@@ -239,13 +239,13 @@ exports.tagCard = xItem => {
 
 	if (linkOut) suggestions.linkOutSuggestion = linkOut
 
-	// let list = []
-	// list.push(suggestions)
+	let list = []
+	list.push(suggestions)
 	// if (linkOut) list.push(linkOut)
 	// console.log('list')
 	// console.log(list)
 	// return list
-	return [suggestions]
+	return list
 }
 
 exports.tagList = xItem => {
