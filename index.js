@@ -145,6 +145,8 @@ app.post('/', (req, res, next) => {
 				}
 			})
 
+			console.log('rep')
+			console.log(rep)
 			if (!sendLocation) res.status(200).send(rep)
 			return next()
 		} catch (error) {
