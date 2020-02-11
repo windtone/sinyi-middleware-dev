@@ -30,8 +30,11 @@ app.post('/', (req, res, next) => {
 	}
 	console.log(content)
 
+	if (conv.fallbackCancelGPS(content)) {
+		repText = '@relisten'
+	}
 	//  如果有定位訊息統一傳送
-	if (conv.checkUserLocation(content)) {
+	else if (conv.checkUserLocation(content)) {
 		mLocation = conv.getUserLocation(content)
 		let zipCode = mLocation.zipCode
 		let formattedAddress = mLocation.formattedAddress.split(',')
@@ -41,10 +44,6 @@ app.post('/', (req, res, next) => {
 		repText = stringUtils.isNullOrEmpty(zipCode) ? '@gpsnofound' : `${city}${area}`
 
 		console.log(mLocation)
-	}
-
-	if (conv.fallbackCancelGPS(content)) {
-		repText = '@relisten'
 	}
 
 	try {
