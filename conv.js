@@ -19,7 +19,7 @@ exports.getUserLocation = content => {
 exports.fallbackCancelGPS = content => {
 	return (
 		content.originalDetectIntentRequest.payload.inputs[0].intent === 'action.intent.PERMISSION' &&
-		content.originalDetectIntentRequest.payload.inputs[0].rawInputs.query === '不用了' &&
+		content.originalDetectIntentRequest.payload.inputs[0].rawInputs[0].query === '不用了' &&
 		content.queryResult.action === 'input.unknown' &&
 		content.queryResult.intent.displayName === 'Default Fallback Intent'
 	)
