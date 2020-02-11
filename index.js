@@ -29,8 +29,8 @@ app.post('/', (req, res, next) => {
 		'Content-Type': 'application/json',
 	}
 
-	console.log(content.originalDetectIntentRequest)
-	console.log(content.originalDetectIntentRequest.payload.inputs[0].intent)
+	//console.log(content.originalDetectIntentRequest)
+	//console.log(content.originalDetectIntentRequest.payload.inputs[0].intent)
 
 	if (conv.fallbackCancelGPS(content)) {
 		repText = '@relisten'
@@ -45,7 +45,7 @@ app.post('/', (req, res, next) => {
 
 		repText = stringUtils.isNullOrEmpty(zipCode) ? '@gpsnofound' : `${city}${area}`
 
-		console.log(mLocation)
+		//console.log(mLocation)
 	}
 
 	try {
@@ -150,7 +150,7 @@ app.post('/', (req, res, next) => {
 						break
 				}
 			})
-
+			console.log(rep)
 			if (!sendLocation) res.status(200).send(rep)
 			return next()
 		} catch (error) {
