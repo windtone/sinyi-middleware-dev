@@ -186,7 +186,7 @@ exports.titleList = (xTitle, cards) => {
 				description: item.clAlt,
 				image: {
 					// 公司產品後面沒圖因此這塊用不到
-					imageUri: card.cImageData.cImageUrl,
+					imageUri: card.cImageData ? card.cImageData.cImageUrl : '',
 					accessibilityText: '66',
 				},
 			})
