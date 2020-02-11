@@ -30,7 +30,7 @@ app.post('/', (req, res, next) => {
 	}
 
 	console.log(content.originalDetectIntentRequest)
-	console.log(content.originalDetectIntentRequest.payload.inputs[0].rawInputs[0].query)
+	console.log(content.originalDetectIntentRequest.payload.inputs[0].intent)
 
 	if (conv.fallbackCancelGPS(content)) {
 		repText = '@relisten'
