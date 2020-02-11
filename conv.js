@@ -18,6 +18,7 @@ exports.getUserLocation = content => {
 
 exports.fallbackCancelGPS = content => {
 	return (
+		!content.queryResult.queryText &&
 		content.queryResult.action === 'input.unknown' &&
 		content.queryResult.intent.displayName === 'Default Fallback Intent'
 	)
