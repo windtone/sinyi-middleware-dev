@@ -28,7 +28,9 @@ app.post('/', (req, res, next) => {
 	let headers = {
 		'Content-Type': 'application/json',
 	}
+
 	console.log(content.originalDetectIntentRequest)
+	console.log(content.originalDetectIntentRequest.payload.inputs[0].rawInputs[0].query)
 
 	if (conv.fallbackCancelGPS(content)) {
 		repText = '@relisten'
