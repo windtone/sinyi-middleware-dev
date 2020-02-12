@@ -317,7 +317,7 @@ exports.telButton = xItem => {
 			subtitle: xItem.title,
 			formattedText: '',
 			image: {
-				imageUri: card.cImageData.cImageUrl,
+				imageUri: '',
 				accessibilityText: '顯示異常',
 			},
 			buttons: [
