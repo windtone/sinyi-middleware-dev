@@ -310,22 +310,25 @@ exports.tagUrlCard = (xItem, xUrl) => {
 }
 
 exports.telButton = xItem => {
-	let rep = xItem.map(item => {
-		return {
-			title: item.title,
-			openUriAction: {
-				url: item.url,
-				androidApp: {
-					packageName: 'com.android.phone',
-				},
-				versions: [],
-			},
-		}
-	})
-
 	return {
 		platform: 'ACTIONS_ON_GOOGLE',
-		buttons: rep,
+		basicCard: {
+			title: xItem.title,
+			subtitle: xItem.title,
+			formattedText: '',
+			buttons: [
+				{
+					title: xItem.title,
+					openUriAction: {
+						uri: xItem.url,
+						androidApp: {
+							packageName: 'com.android.phone',
+						},
+						versions: [],
+					},
+				},
+			],
+		},
 	}
 }
 

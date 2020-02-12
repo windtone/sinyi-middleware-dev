@@ -150,10 +150,8 @@ app.post('/', (req, res, next) => {
 						break
 					//  電話按鈕
 					case 16:
-						if (item.data.length > 0) {
-							let reply = utils.telButton(item.data)
-							rep.fulfillmentMessages.push(reply)
-						}
+						let reply = utils.telButton(item.data)
+						rep.fulfillmentMessages.push(reply)
 						break
 				}
 			})
