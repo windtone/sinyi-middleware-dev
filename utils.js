@@ -312,23 +312,17 @@ exports.tagUrlCard = (xItem, xUrl) => {
 exports.telButton = xItem => {
 	return {
 		platform: 'ACTIONS_ON_GOOGLE',
-		basicCard: {
-			title: xItem.title,
-			subtitle: xItem.title,
-			formattedText: '',
-			image: {
-				imageUri: '',
-				accessibilityText: '顯示異常',
-			},
-			buttons: [
+		browseCarouselCard: {
+			items: [
 				{
-					title: xItem.title,
+					title: xItem.title || '',
+					description: '',
+					image: {
+						imageUri: '',
+						accessibilityText: '顯示異常',
+					},
 					openUriAction: {
-						uri: xItem.url,
-						androidApp: {
-							packageName: 'com.android.phone',
-						},
-						versions: [],
+						url: xItem.url,
 					},
 				},
 			],
