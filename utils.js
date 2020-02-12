@@ -309,6 +309,26 @@ exports.tagUrlCard = (xItem, xUrl) => {
 	}
 }
 
+exports.telButton = xItem => {
+	let rep = xItem.map(item => {
+		return {
+			title: item.title,
+			openUriAction: {
+				url: item.url,
+				androidApp: {
+					packageName: 'com.android.phone',
+				},
+				versions: [],
+			},
+		}
+	})
+
+	return {
+		platform: 'ACTIONS_ON_GOOGLE',
+		buttons: rep,
+	}
+}
+
 //  圖表
 exports.tableCard = () => {
 	return {

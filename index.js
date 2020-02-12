@@ -148,6 +148,15 @@ app.post('/', (req, res, next) => {
 						rep.fulfillmentMessages.push(utils.replayTalk('再見'))
 						rep.fulfillmentMessages.push(utils.replayTalk(utils.byebye()))
 						break
+					//  電話按鈕
+					case 16:
+						if (item.data.length > 0) {
+							let arr = utils.telButton(item.data)
+							arr.forEach(item => {
+								rep.fulfillmentMessages.push(item)
+							})
+						}
+						break
 				}
 			})
 			console.log(rep)
