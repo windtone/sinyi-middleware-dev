@@ -2,8 +2,6 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const app = express().use(bodyParser.json())
-const { dialogflow, SimpleResponse } = require('actions-on-google')
-const aogApp = dialogflow({ debug: true });
 
 //  Node Fetch
 const fetch = require('node-fetch')
@@ -20,15 +18,6 @@ const conv = require('./conv.js')
 
 const PORT = config.PORT
 const URL_API = config.URL_API
-
-aogApp.intent('PERMISSION', con => {
-    console.log(con)
-
-    con.ask(new SimpleResponse({
-        speech: 'PERMISSION',
-        text: 'PERMISSION'
-    }))
-})
 
 //  接收 AOG 傳來的訊息
 app.post('/', (req, res, next) => {
