@@ -23,6 +23,16 @@ exports.fallbackCancelGPS = content => {
 	)
 }
 
+function permissionGranted(req) {
+    for(let i = 0; i < 4; i++) {
+        let outputContexts = req.queryResult.outputContexts[i];
+        if(outputContexts.parameters) {
+            return outputContexts.parameters.PERMISSION;
+        }
+    }
+    return false;
+}
+
 exports.askPermission = (permissions, context) => {
 	if (permissions)
 		return {
