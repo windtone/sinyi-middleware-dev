@@ -94,8 +94,7 @@ exports.urlCard = (card) => {
 		platform: 'ACTIONS_ON_GOOGLE',
 		basicCard: {
 			title: mTitle,
-            subtitle: "",
-            formattedText: mText,
+            subtitle: mText,
 			image: {
 				imageUri: card.cImageData.cImageUrl,
 				accessibilityText: '顯示異常',
@@ -103,12 +102,12 @@ exports.urlCard = (card) => {
             buttons: [
                 {
                     title: "詳細資訊",
-                    openUrlAction: {
-                            url: card.curl
+                    openUriAction: {
+                        uri: card.curl
                     }
                 }
             ],
-            imageDisplayOptions: "CROPPED"
+            imageDisplayOptions: "DEFAULT"
 		},
 	}
 }
