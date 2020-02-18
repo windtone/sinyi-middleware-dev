@@ -96,8 +96,8 @@ exports.urlCard = (card) => {
 			title: mTitle,
 			subtitle: mText,
 			image: {
-				imageUri: img,
-				accessibilityText: '666',
+				imageUri: card.cImageData.cImageUrl,
+				accessibilityText: '顯示異常',
             },
             openUriAction: {
 				url: card.curl,
