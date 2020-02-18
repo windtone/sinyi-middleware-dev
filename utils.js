@@ -99,9 +99,14 @@ exports.urlCard = (card) => {
 				imageUri: card.cImageData.cImageUrl,
 				accessibilityText: '顯示異常',
             },
-            openUriAction: {
-				url: card.curl,
-			}
+            buttons: [
+                {
+                    title: "詳細資訊",
+                    openUriAction: {
+                        url: card.curl,
+                    }
+                }
+            ],
 		},
 	}
 }
