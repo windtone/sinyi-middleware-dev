@@ -102,7 +102,7 @@ exports.urlCard = (card) => {
             buttons: [
                 {
                     title: "詳細資訊",
-                    openUriAction: {
+                    openUrlAction: {
                         url: card.curl,
                     }
                 }
