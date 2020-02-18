@@ -57,6 +57,55 @@ exports.byebye = () => {
 	}
 }
 
+exports.urlCard = (card) => {
+    let mTitle = '' // 建案名稱
+    let mText = '' // 文案全部
+    let mPattern = '' // 格局
+    let mAreaS = '' // 坪數
+    let mPrice = '' // 價格
+    let mPark = '' // 車位
+
+    card.cTexts.forEach(item => {
+        if (item.cLabel === '物件名稱') {
+            mTitle = item.cText
+        } else {
+            let mObject = item.cText
+            // if (typeof mObject === 'number') {
+            //   mObject = `${mObject}萬`
+            // }
+            if (typeof mObject === 'boolean') {
+                mPark = mObject ? '有車位' : '沒車位'
+            }
+            if (item.cLabel === '格局') {
+                mPattern = mObject
+            }
+            if (item.cLabel === '建坪') {
+                mAreaS = `${mObject}坪`
+            }
+            if (item.cLabel === '價格') {
+                mPrice = `$${mObject}萬`
+            }
+        }
+    })
+
+    mText = `${mPattern} - ${mAreaS}\n${mPrice}\n${mPark}`
+
+	return {
+		platform: 'ACTIONS_ON_GOOGLE',
+		basicCard: {
+			title: mTitle,
+			subtitle: mText,
+			image: {
+				imageUri: img,
+				accessibilityText: '666',
+            },
+            openUriAction: {
+				url: card.curl,
+			}
+		},
+	}
+}
+
 //  列表清單卡(完成) 有內容的
 exports.urlListCard = (xTitle, cards) => {
 	let rep = { items: [] }

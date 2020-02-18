@@ -119,8 +119,12 @@ app.post('/', (req, res, next) => {
 						if (item.data[0].cTextType === '98') {
 							// rep.fulfillmentMessages.push(
 							//   utils.replayTalk(item.data[0].cTitle)
-							// )
-							rep.fulfillmentMessages.push(utils.urlListCard('為你找到以下符合的物件', item.data))
+                            // )
+                            if(item.data.length > 1) {
+                                rep.fulfillmentMessages.push(utils.urlListCard('為你找到以下符合的物件', item.data))
+                            } else {
+                                rep.fulfillmentMessages.push(utils.urlCard(item.data[0]))
+                            }
 						} else {
 							rep.fulfillmentMessages.push(utils.replayTalk('主題找屋'))
 							rep.fulfillmentMessages.push(utils.titleList('主題找屋', item.data))
