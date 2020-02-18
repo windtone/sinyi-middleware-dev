@@ -102,7 +102,7 @@ exports.urlCard = (card) => {
             buttons: [
                 {
                     title: "詳細資訊",
-                    openUrlAction: {
+                    openUriAction: {
                         url: card.curl,
                     }
                 }
@@ -159,7 +159,7 @@ exports.urlListCard = (xTitle, cards) => {
 				imageUri: card.cImageData.cImageUrl,
 				accessibilityText: '顯示異常',
 			},
-			openUrlAction: {
+			openUriAction: {
 				url: card.curl,
 			},
 		})
