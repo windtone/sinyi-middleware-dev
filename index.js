@@ -29,7 +29,7 @@ app.post('/', (req, res, next) => {
 		'Content-Type': 'application/json',
 	}
 
-	console.log(content.queryResult.outputContexts)
+	console.log(content);
 	//console.log(content.originalDetectIntentRequest.payload.inputs[0].intent)
 
 	if (conv.fallbackCancelGPS(content)) {
