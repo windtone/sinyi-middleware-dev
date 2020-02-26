@@ -126,7 +126,7 @@ app.post('/', (req, res, next) => {
                                 rep.fulfillmentMessages.push(utils.urlCard(item.data[0]))
                             }
 						} else {
-							rep.fulfillmentMessages.push(utils.replayTalk('主題找屋'))
+							rep.fulfillmentMessages.push(utils.replayTalk('ㄚ義能夠幫您找這些主題屋哦'))
 							rep.fulfillmentMessages.push(utils.titleList('主題找屋', item.data))
 						}
 						break
