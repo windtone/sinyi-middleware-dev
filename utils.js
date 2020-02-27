@@ -38,18 +38,18 @@ exports.askPermission = (context, permissions) => {
 };
 
 exports.listCard = (title, data) => {
-  let items = [];
+  let items = {};
 
   data.forEach(card => {
     card.cLinkList.forEach(item => {
-      items.push({
+      items[item.clText] = {
         title: item.clText,
         description: item.clAlt,
         image: new Image({
           url: card.cImageData ? card.cImageData.cImageUrl : '',
           alt: item.clAlt
         })
-      });
+      };
     });
   });
 
