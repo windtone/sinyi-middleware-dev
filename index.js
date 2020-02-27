@@ -14,11 +14,7 @@ const utils = require('./utils.js');
 const stringUtils = require('./stringUtils.js');
 
 //  AoG
-const {
-  dialogflow,
-  Suggestions,
-  LinkOutSuggestion
-} = require('actions-on-google');
+const { dialogflow } = require('actions-on-google');
 const app = dialogflow();
 
 // SysTalk
@@ -77,32 +73,20 @@ function systalkFallback(conv, json) {
   json.messages.forEach(item => {
     switch (item.type) {
       case 1:
-        conv.ask(item.text);
+        conv.ask(utils.simpleResponse(item.text));
+        break;
+      case 9:
+        // 向 DialogFlow 送出要求取得定位資訊
+        let permissions = [app.SupportedPermissions.DEVICE_PRECISE_LOCATION];
+        conv.ask(app.askForPermissions('為了提供定位服務', permissions));
         break;
       case 13:
-        let suggestions = [];
-        let linkOutSuggestion = null;
-
-        item.data.forEach(option => {
-          if (option.url) {
-            linkOutSuggestion = {
-              name: option.title,
-              url: option.url
-            };
-          } else {
-            suggestions.push(option.title);
-          }
-        });
-
-        conv.ask(new Suggestions(suggestions));
-        if (linkOutSuggestion)
-          conv.ask(new LinkOutSuggestion(linkOutSuggestion));
+        //  一般選項
+        conv.ask(utils.suggestions(item.data));
+        //  外部連結
+        let link = item.data.find(option => !!option.url);
+        if (link) conv.ask(utils.linkOutSuggestion(link));
         break;
     }
   });
-}
-
-function getLocation() {
-  const permissions = [app.SupportedPermissions.DEVICE_PRECISE_LOCATION];
-  app.askForPermissions('為了提供定位服務', permissions);
 }
