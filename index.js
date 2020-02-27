@@ -36,7 +36,7 @@ app.intent('Default Fallback Intent', conv => {
 		sessionId: session,
 	}
 
-	systalk(payload)
+	systalk(conv, payload)
 })
 
 // 取得使用者資訊回饋 (好的, 不用了)
