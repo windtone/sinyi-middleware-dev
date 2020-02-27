@@ -26,8 +26,7 @@ const URL_API = config.URL_API;
 app.intent('Default Fallback Intent', async conv => {
   let session = conv.body.session;
   let message = conv.input.raw;
-  console.log(message);
-  console.log(conv.input);
+
   let payload = {
     message: {
       type: 1,
@@ -40,13 +39,28 @@ app.intent('Default Fallback Intent', async conv => {
 });
 
 // 取得使用者資訊回饋 (好的, 不用了)
-app.intent('Get Permission Intent', (conv, params, permissionGranted) => {
+app.intent('Get Permission Intent', async (conv, params, permissionGranted) => {
+  let session = conv.body.session;
+  let message = '';
+
   if (permissionGranted) {
     const { requestedPermission } = conv.data;
     if (requestedPermission === 'DEVICE_PRECISE_LOCATION') {
-      console.log(conv.device.location);
+      message = conv.device.location.formattedAddress;
     }
+  } else {
+    message = '@relisten';
   }
+
+  let payload = {
+    message: {
+      type: 1,
+      text: message
+    },
+    sessionId: session
+  };
+
+  await systalk(conv, payload);
 });
 
 // 離開對話 (謝謝)
@@ -73,8 +87,6 @@ async function systalk(conv, payload) {
 }
 
 function systalkFallback(conv, json) {
-  console.log('systalkFallback');
-  console.log(json);
   json.messages.forEach(item => {
     switch (item.type) {
       // 一般對話
