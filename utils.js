@@ -39,6 +39,7 @@ exports.askPermission = (context, permissions) => {
 
 exports.listCard = (title, data) => {
   let items = [];
+
   data.forEach(card => {
     card.cLinkList.forEach(item => {
       items.push({
@@ -51,6 +52,8 @@ exports.listCard = (title, data) => {
       });
     });
   });
+
+  console.log(items);
 
   return new List({
     title: title,
