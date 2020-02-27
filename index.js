@@ -14,7 +14,11 @@ const utils = require('./utils.js');
 const stringUtils = require('./stringUtils.js');
 
 //  AoG
-const { dialogflow } = require('actions-on-google');
+const {
+  dialogflow,
+  Suggestions,
+  LinkOutSuggestion
+} = require('actions-on-google');
 const app = dialogflow();
 
 // SysTalk
@@ -76,9 +80,23 @@ function systalkFallback(conv, json) {
         conv.ask(item.text);
         break;
       case 13:
-        conv.ask(
-          new Suggestions(item.data.map(suggestion => suggestion.title))
-        );
+        let suggestions = [];
+        let linkOutSuggestion = null;
+
+        item.data.forEach(option => {
+          if (option.url) {
+            linkOutSuggestion = {
+              name: option.title,
+              url: option.url
+            };
+          } else {
+            suggestions.push(option.title);
+          }
+        });
+
+        conv.ask(new Suggestions(suggestions));
+        if (linkOutSuggestion)
+          conv.ask(new LinkOutSuggestion(linkOutSuggestion));
         break;
     }
   });
