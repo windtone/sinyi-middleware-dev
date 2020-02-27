@@ -78,8 +78,8 @@ exports.urlListCard = data => {
         mPark = item.cText ? '有車位' : '沒車位';
       } else if (item.cLabel === '格局') {
         mPattern = item.cText;
-      } else if (item.cLabel === '格局') {
-        mPattern = item.cText;
+      } else if (item.cLabel === '建坪') {
+        mAreaS = `${item.cText}}坪`;
       } else if (item.cLabel === '價格') {
         mPrice = `$${item.cText}萬`;
       }
