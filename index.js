@@ -103,7 +103,7 @@ function systalkFallback(conv, json) {
           }
         } else {
           conv.ask(utils.simpleResponse('ㄚ義能夠幫您找這些主題屋哦'));
-          conv.ask(utils.listCard(item.data));
+          conv.ask(utils.listCard('主題找屋', item.data));
         }
         break;
       // 要求定位資訊
