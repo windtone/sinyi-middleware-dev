@@ -7,7 +7,8 @@ const {
   Image,
   BrowseCarousel,
   BrowseCarouselItem,
-  BasicCard
+  BasicCard,
+  Button
 } = require('actions-on-google');
 
 exports.simpleResponse = text => {
