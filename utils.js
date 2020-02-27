@@ -112,6 +112,9 @@ exports.urlCard = data => {
   let mPrice = ''; // 價格
   let mPark = ''; // 車位
 
+  console.log('=== data ===');
+  console.log(data);
+
   data.cTexts.forEach(item => {
     if (item.cLabel === '物件名稱') {
       mTitle = item.cText;
@@ -127,6 +130,8 @@ exports.urlCard = data => {
   });
 
   mText = `${mPattern} - ${mAreaS}\n${mPrice}\n${mPark}`;
+  console.log('=== mText ===');
+  console.log(mText);
 
   let basicCard = new BasicCard({
     title: mTitle,
