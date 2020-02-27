@@ -6,7 +6,8 @@ const {
   List,
   Image,
   BrowseCarousel,
-  BrowseCarouselItem
+  BrowseCarouselItem,
+  BasicCard
 } = require('actions-on-google');
 
 exports.simpleResponse = text => {
@@ -100,5 +101,45 @@ exports.urlListCard = data => {
 
   return new BrowseCarousel({
     items: items
+  });
+};
+
+exports.urlCard = data => {
+  let mText = ''; // 文案
+  let mPattern = ''; // 格局
+  let mAreaS = ''; // 坪數
+  let mPrice = ''; // 價格
+  let mPark = ''; // 車位
+
+  data.cTexts.forEach(item => {
+    if (item.cLabel === '物件名稱') {
+      mTitle = item.cText;
+    } else if (typeof item.cText === 'boolean') {
+      mPark = item.cText ? '有車位' : '沒車位';
+    } else if (item.cLabel === '格局') {
+      mPattern = item.cText;
+    } else if (item.cLabel === '建坪') {
+      mAreaS = `${item.cText}坪`;
+    } else if (item.cLabel === '價格') {
+      mPrice = `$${item.cText}萬`;
+    }
+  });
+
+  mText = `${mPattern} - ${mAreaS}\n${mPrice}\n${mPark}`;
+
+  return new BasicCard({
+    title: mTitle,
+    subtitle: mText,
+    buttons: new Button({
+      title: '詳細資訊',
+      url: card.curl
+    }),
+    image: new Image({
+      url: data.cImageData.cImageUrl,
+      alt: mTitle,
+      width: 128,
+      height: 128
+    }),
+    display: 'CROPPED'
   });
 };
