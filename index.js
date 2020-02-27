@@ -46,7 +46,7 @@ app.intent('Get Permission Intent', async (conv, params, permissionGranted) => {
   if (permissionGranted) {
     const { requestedPermission } = conv.data;
     if (requestedPermission === 'DEVICE_PRECISE_LOCATION') {
-      message = conv.device.location.formattedAddress;
+      message = conv.device.location.formattedAddress.replace(/\d+/g, '');
     }
   } else {
     message = '@relisten';
