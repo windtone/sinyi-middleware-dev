@@ -26,7 +26,8 @@ const URL_API = config.URL_API
 app.intent('Default Fallback Intent', conv => {
 	let session = conv.body.session
 	let message = conv.input.raw
-
+	console.log(message)
+	console.log(conv.input)
 	let payload = {
 		message: {
 			type: 1,
