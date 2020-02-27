@@ -2,7 +2,8 @@ const {
   SimpleResponse,
   Suggestions,
   LinkOutSuggestion,
-  Permission
+  Permission,
+  List
 } = require('actions-on-google');
 
 exports.simpleResponse = text => {
@@ -32,6 +33,27 @@ exports.askPermission = (context, permissions) => {
   return new Permission({
     context: context,
     permissions: permissions
+  });
+};
+
+exports.listCard = (title, data) => {
+  let items = [];
+  data.forEach(card => {
+    card.cLinkList.forEach(item => {
+      items.push({
+        title: item.clText,
+        description: item.clAlt,
+        image: new Image({
+          url: card.cImageData ? card.cImageData.cImageUrl : '',
+          alt: item.clAlt
+        })
+      });
+    });
+  });
+
+  return new List({
+    title: title,
+    items: items
   });
 };
 

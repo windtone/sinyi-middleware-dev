@@ -93,6 +93,19 @@ function systalkFallback(conv, json) {
       case 1:
         conv.ask(utils.simpleResponse(item.text));
         break;
+      // 牌卡
+      case 6:
+        if (item.data[0].cTextType === '98') {
+          if (item.data.length === 1) {
+            conv.ask(utils.urlCard(item.data[0]));
+          } else {
+            conv.ask(utils.urlListCard(item.data));
+          }
+        } else {
+          conv.ask(utils.simpleResponse('ㄚ義能夠幫您找這些主題屋哦'));
+          conv.ask(utils.listCard(item.data));
+        }
+        break;
       // 要求定位資訊
       case 9:
         // 向 DialogFlow 送出要求取得定位資訊
