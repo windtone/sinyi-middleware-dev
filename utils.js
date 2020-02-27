@@ -142,9 +142,7 @@ exports.urlCard = data => {
     }),
     image: new Image({
       url: data.cImageData.cImageUrl,
-      alt: mTitle,
-      width: 128,
-      height: 128
+      alt: mTitle
     }),
     display: 'CROPPED'
   });
