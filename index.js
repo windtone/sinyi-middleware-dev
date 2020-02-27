@@ -43,6 +43,8 @@ app.intent('Get Permission Intent', async (conv, params, permissionGranted) => {
   let session = conv.body.session;
   let message = '';
 
+  console.log(conv);
+
   if (permissionGranted) {
     const { requestedPermission } = conv.data;
     if (requestedPermission === 'DEVICE_PRECISE_LOCATION') {
