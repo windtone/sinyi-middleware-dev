@@ -3,7 +3,8 @@ const {
   Suggestions,
   LinkOutSuggestion,
   Permission,
-  List
+  List,
+  Image
 } = require('actions-on-google');
 
 exports.simpleResponse = text => {
