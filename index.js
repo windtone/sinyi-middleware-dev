@@ -72,14 +72,17 @@ function systalkFallback(conv, json) {
   console.log(json);
   json.messages.forEach(item => {
     switch (item.type) {
+      // 一般對話
       case 1:
         conv.ask(utils.simpleResponse(item.text));
         break;
+      // 要求定位資訊
       case 9:
         // 向 DialogFlow 送出要求取得定位資訊
         let permissions = [app.SupportedPermissions.DEVICE_PRECISE_LOCATION];
-        conv.ask(app.askForPermissions('為了提供定位服務', permissions));
+        conv.ask(app.askForPermission('為了提供定位服務', permissions));
         break;
+      // Tags
       case 13:
         //  一般選項
         conv.ask(utils.suggestions(item.data));
