@@ -40,8 +40,13 @@ app.intent('Default Fallback Intent', async conv => {
 });
 
 // 取得使用者資訊回饋 (好的, 不用了)
-app.intent('Get Permission Intent', conv => {
-  console.log(conv);
+app.intent('Get Permission Intent', (conv, params, permissionGranted) => {
+  if (permissionGranted) {
+    const { requestedPermission } = conv.data;
+    if (requestedPermission === 'DEVICE_PRECISE_LOCATION') {
+      console.log(conv.device.location);
+    }
+  }
 });
 
 // 離開對話 (謝謝)
