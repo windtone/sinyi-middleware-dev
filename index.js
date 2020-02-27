@@ -56,7 +56,9 @@ router.listen(PORT, () => console.log(`webhook starting at port ${PORT}`))
 function systalk(conv, payload) {
 	fetch(URL_API, {
 		method: 'POST',
-		headers: headers,
+		headers: {
+			'Content-Type': 'application/json',
+		},
 		body: JSON.stringify(payload),
 	})
 		.then(response => response.json())
