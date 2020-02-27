@@ -23,7 +23,7 @@ const PORT = config.PORT
 const URL_API = config.URL_API
 
 // 主流程意圖
-app.intent('Default Fallback Intent', conv => {
+app.intent('Default Fallback Intent', async conv => {
 	let session = conv.body.session
 	let message = conv.input.raw
 	console.log(message)
@@ -36,7 +36,7 @@ app.intent('Default Fallback Intent', conv => {
 		sessionId: session,
 	}
 
-	systalk(conv, payload)
+	await systalk(conv, payload)
 })
 
 // 取得使用者資訊回饋 (好的, 不用了)
@@ -54,8 +54,8 @@ router.post('/', app)
 router.listen(PORT, () => console.log(`webhook starting at port ${PORT}`))
 
 // send to systalk AI
-function systalk(conv, payload) {
-	fetch(URL_API, {
+async function systalk(conv, payload) {
+	return await fetch(URL_API, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
