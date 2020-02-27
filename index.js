@@ -70,6 +70,13 @@ function systalk(conv, payload) {
 function systalkFallback(conv, json) {
 	console.log('systalkFallback')
 	console.log(json)
+	json.messages.forEach(item => {
+		switch (item.type) {
+			case 1:
+				conv.ask(item.text)
+				break
+		}
+	})
 }
 
 function getLocation() {
