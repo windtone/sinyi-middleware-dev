@@ -1,6 +1,6 @@
 exports.checkUserLocation = content => {
 	return (
-		!(content.queryResult && content.queryResult.queryText) &&
+		content.queryResult.queryText === "actions_intent_PERMISSION" &&
 		content.originalDetectIntentRequest.payload.inputs[0].intent === 'actions.intent.PERMISSION' &&
 		content.originalDetectIntentRequest.payload.device
 	)
