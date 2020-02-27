@@ -1,7 +1,8 @@
 const {
   SimpleResponse,
   Suggestions,
-  LinkOutSuggestion
+  LinkOutSuggestion,
+  Permission
 } = require('actions-on-google');
 
 exports.simpleResponse = text => {
@@ -24,6 +25,13 @@ exports.linkOutSuggestion = option => {
   return new LinkOutSuggestion({
     name: option.title,
     url: option.url
+  });
+};
+
+exports.askPermission = (context, permissions) => {
+  return new Permission({
+    context: context,
+    permissions: permissions
   });
 };
 

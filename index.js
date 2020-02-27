@@ -80,7 +80,7 @@ function systalkFallback(conv, json) {
       case 9:
         // 向 DialogFlow 送出要求取得定位資訊
         let permissions = [app.SupportedPermissions.DEVICE_PRECISE_LOCATION];
-        conv.ask(app.askForPermission('為了提供定位服務', permissions));
+        conv.ask(utils.askPermission('為了提供定位服務', permissions));
         break;
       // Tags
       case 13:
