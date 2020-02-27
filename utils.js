@@ -133,8 +133,7 @@ exports.urlCard = data => {
   console.log('=== mText ===');
   console.log(mText);
 
-  let basicCard = new BasicCard({
-    text: mText,
+  return (basicCard = new BasicCard({
     title: mTitle,
     subtitle: mText,
     buttons: new Button({
@@ -144,34 +143,6 @@ exports.urlCard = data => {
     image: new Image({
       url: data.cImageData.cImageUrl,
       alt: mTitle
-    }),
-    display: 'CROPPED'
-  });
-
-  console.log(basicCard);
-
-  return basicCard;
-
-  conv.ask(
-    new BasicCard({
-      text: `This is a basic card.  Text in a basic card can include "quotes" and
-    most other unicode characters including emojis.  Basic cards also support
-    some markdown formatting like *emphasis* or _italics_, **strong** or
-    __bold__, and ***bold itallic*** or ___strong emphasis___ as well as other
-    things like line  \nbreaks`, // Note the two spaces before '\n' required for
-      // a line break to be rendered in the card.
-      subtitle: 'This is a subtitle',
-      title: 'Title: this is a title',
-      buttons: new Button({
-        title: 'This is a button',
-        url: 'https://assistant.google.com/'
-      }),
-      image: new Image({
-        url:
-          'https://storage.googleapis.com/actionsresources/logo_assistant_2x_64dp.png',
-        alt: 'Image alternate text'
-      }),
-      display: 'CROPPED'
     })
-  );
+  }));
 };
