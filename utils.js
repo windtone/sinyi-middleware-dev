@@ -134,6 +134,7 @@ exports.urlCard = data => {
   console.log(mText);
 
   let basicCard = new BasicCard({
+    text: mText,
     title: mTitle,
     subtitle: mText,
     buttons: new Button({
@@ -142,7 +143,9 @@ exports.urlCard = data => {
     }),
     image: new Image({
       url: data.cImageData.cImageUrl,
-      alt: mTitle
+      alt: mTitle,
+      width: 128,
+      height: 128
     }),
     display: 'CROPPED'
   });
