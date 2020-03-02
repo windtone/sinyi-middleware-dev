@@ -138,8 +138,11 @@ exports.urlCard = data => {
     formattedText: '',
     image: new Image({
       url: data.cImageData.cImageUrl,
-      alt: mTitle
-    })
+      alt: mTitle,
+      width: 128,
+      height: 128
+    }),
+    imageDisplayOptions: 'CROPPED'
   });
   console.log('=== ret ===');
   console.log(ret);
