@@ -132,20 +132,17 @@ exports.urlCard = data => {
   mText = `${mPattern} - ${mAreaS}\n${mPrice}\n${mPark}`;
   console.log('=== mText ===');
   console.log(mText);
-
-  return new BasicCard({
+  let ret = new BasicCard({
     title: mTitle,
     subtitle: mText,
     formattedText: '',
-    buttons: [
-      new Button({
-        title: '詳細資訊',
-        url: card.curl
-      })
-    ],
     image: new Image({
       url: data.cImageData.cImageUrl,
       alt: mTitle
     })
   });
+  console.log('=== ret ===');
+  console.log(ret);
+
+  return ret;
 };
