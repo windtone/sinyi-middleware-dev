@@ -121,7 +121,7 @@ function systalkFallback(conv, json) {
         let suggestions = utils.suggestions(item.data);
         console.log('=== suggestions ===');
         console.log(suggestions);
-        if (suggestions && suggestions.length > 0) conv.ask(suggestions);
+        if (suggestions.suggestions.length > 0) conv.ask(suggestions);
         //  外部連結
         let link = item.data.find(option => !!option.url);
         console.log('=== Link ===');
