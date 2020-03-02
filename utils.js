@@ -112,9 +112,6 @@ exports.urlCard = data => {
   let mPrice = ''; // 價格
   let mPark = ''; // 車位
 
-  console.log('=== data ===');
-  console.log(data);
-
   data.cTexts.forEach(item => {
     if (item.cLabel === '物件名稱') {
       mTitle = item.cText;
@@ -130,9 +127,8 @@ exports.urlCard = data => {
   });
 
   mText = `${mPattern} - ${mAreaS}\n${mPrice}\n${mPark}`;
-  console.log('=== mText ===');
-  console.log(mText);
-  let ret = new BasicCard({
+
+  return new BasicCard({
     title: mTitle,
     subtitle: mText,
     formattedText: '',
@@ -142,8 +138,4 @@ exports.urlCard = data => {
     }),
     buttons: [new Button({ title: '詳細資訊', url: data.curl })]
   });
-  console.log('=== ret ===');
-  console.log(ret);
-
-  return ret;
 };

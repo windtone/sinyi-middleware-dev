@@ -93,7 +93,7 @@ function systalkFallback(conv, json) {
     switch (item.type) {
       // 一般對話
       case 1:
-        conv.ask(utils.simpleResponse(item.text));
+        conv.ask(utils.simpleResponse(item.text.replace(/[\r\n]$/g)));
         break;
       // 牌卡
       case 6:
@@ -119,9 +119,12 @@ function systalkFallback(conv, json) {
       // Tags
       case 13:
         //  一般選項
-        conv.ask(utils.suggestions(item.data));
+        let suggestions = utils.suggestions(item.data);
+        if (suggestions && suggestions.length > 0) conv.ask(suggestions);
         //  外部連結
         let link = item.data.find(option => !!option.url);
+        console.log('=== Link ===');
+        console.log(link);
         if (link) conv.ask(utils.linkOutSuggestion(link));
         break;
     }
