@@ -137,10 +137,12 @@ exports.urlCard = data => {
     title: mTitle,
     subtitle: mText,
     formattedText: '',
-    buttons: new Button({
-      title: '詳細資訊',
-      url: card.curl
-    }),
+    buttons: [
+      new Button({
+        title: '詳細資訊',
+        url: card.curl
+      })
+    ],
     image: new Image({
       url: data.cImageData.cImageUrl,
       alt: mTitle
