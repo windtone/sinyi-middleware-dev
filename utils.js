@@ -133,9 +133,10 @@ exports.urlCard = data => {
   console.log('=== mText ===');
   console.log(mText);
 
-  return (basicCard = new BasicCard({
+  return new BasicCard({
     title: mTitle,
     subtitle: mText,
+    formattedText: '',
     buttons: new Button({
       title: '詳細資訊',
       url: card.curl
@@ -144,5 +145,5 @@ exports.urlCard = data => {
       url: data.cImageData.cImageUrl,
       alt: mTitle
     })
-  }));
+  });
 };
