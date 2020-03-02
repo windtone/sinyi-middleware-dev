@@ -140,9 +140,7 @@ exports.urlCard = data => {
       url: data.cImageData.cImageUrl,
       alt: mTitle
     }),
-    buttons: [
-      new Button({ title: '詳細資訊', openUriAction: { uri: data.curl } })
-    ]
+    buttons: [new Button({ title: '詳細資訊', url: data.curl })]
   });
   console.log('=== ret ===');
   console.log(ret);
