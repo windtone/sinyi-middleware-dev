@@ -11,7 +11,6 @@ const config = require('./config.js');
 
 //  global utils (baseCard)
 const utils = require('./utils.js');
-const stringUtils = require('./stringUtils.js');
 
 //  AoG
 const { dialogflow } = require('actions-on-google');
@@ -93,7 +92,7 @@ function systalkFallback(conv, json) {
     switch (item.type) {
       // 一般對話
       case 1:
-        conv.ask(utils.simpleResponse(item.text.replace(/[\r\n]$/g)));
+        conv.ask(utils.simpleResponse(item.text.replace(/[\r\n]+$/g, '')));
         break;
       // 牌卡
       case 6:
