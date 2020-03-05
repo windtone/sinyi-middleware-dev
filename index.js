@@ -47,7 +47,11 @@ app.intent('Get Permission Intent', async (conv, params, permissionGranted) => {
   if (permissionGranted) {
     const { requestedPermission } = conv.data;
     if (requestedPermission === 'DEVICE_PRECISE_LOCATION') {
-      message = conv.device.location.formattedAddress.replace(/\d+/g, '');
+      message = conv.device.location.formattedAddress
+        .replace(/\d+/g, '')
+        .split(',')
+        .reverse()
+        .join('');
     }
   } else {
     message = '@relisten';
@@ -62,11 +66,6 @@ app.intent('Get Permission Intent', async (conv, params, permissionGranted) => {
   };
 
   await systalk(conv, payload);
-});
-
-// 離開對話 (謝謝)
-app.intent('Exit Conversation', conv => {
-  console.log(conv);
 });
 
 //  接收 AOG 傳來的訊息
