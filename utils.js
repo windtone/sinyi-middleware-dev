@@ -74,10 +74,7 @@ exports.urlListCard = data => {
     let mPark = ''; // 車位
 
     card.cTexts.forEach(item => {
-      if (
-        (item.cLabel === '物件名稱' && item.cText) ||
-        (item.cLabel === '地址' && !mTitle)
-      ) {
+      if (item.cLabel === '物件名稱' && item.cText) {
         mTitle = item.cText;
       } else if (typeof item.cText === 'boolean') {
         mPark = item.cText ? '有車位' : '沒車位';
@@ -102,7 +99,6 @@ exports.urlListCard = data => {
       })
     });
   });
-  console.log(items);
   return new BrowseCarousel({
     items: items
   });
@@ -116,10 +112,7 @@ exports.urlCard = data => {
   let mPark = ''; // 車位
 
   data.cTexts.forEach(item => {
-    if (
-      (item.cLabel === '物件名稱' && item.cText) ||
-      (item.cLabel === '地址' && !mTitle)
-    ) {
+    if (item.cLabel === '物件名稱' && item.cText) {
       mTitle = item.cText;
     } else if (typeof item.cText === 'boolean') {
       mPark = item.cText ? '有車位' : '沒車位';

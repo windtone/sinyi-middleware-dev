@@ -95,7 +95,6 @@ function systalkFallback(conv, json) {
         break;
       // 牌卡
       case 6:
-        console.log(item.data);
         if (item.data[0].cTextType === '98') {
           if (item.data.length === 1) {
             conv.ask(utils.urlCard(item.data[0]));
