@@ -102,7 +102,7 @@ exports.urlListCard = data => {
       })
     });
   });
-
+  console.log(items);
   return new BrowseCarousel({
     items: items
   });
