@@ -105,6 +105,8 @@ function systalkFallback(conv, json) {
           } else {
             conv.ask(utils.urlListCard(item.data));
           }
+        } else if (item.data[0].cTextType === '97') {
+          conv.ask(utils.listCard('實價登錄', item.data));
         } else {
           conv.ask(utils.simpleResponse('ㄚ義能夠幫您找這些主題屋哦'));
           conv.ask(utils.listCard('主題找屋', item.data));
