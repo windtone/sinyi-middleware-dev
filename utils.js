@@ -48,12 +48,14 @@ exports.listCard = (title, data) => {
     card.cLinkList.forEach(item => {
       items[item.clText] = {
         title: item.clText,
-        description: item.clAlt,
-        image: new Image({
+        description: item.clAlt
+      };
+      if (card.cImageData) {
+        items[item.clText].image = new Image({
           url: card.cImageData ? card.cImageData.cImageUrl : '',
           alt: item.clAlt
-        })
-      };
+        });
+      }
     });
   });
 
