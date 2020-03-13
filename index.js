@@ -41,6 +41,7 @@ app.intent('Default Fallback Intent', async conv => {
 app.intent('Get Permission Intent', async (conv, params, permissionGranted) => {
   let session = conv.body.session;
   let message = '';
+  let location = null;
 
   console.log(conv);
 
@@ -52,6 +53,7 @@ app.intent('Get Permission Intent', async (conv, params, permissionGranted) => {
         .split(',')
         .reverse()
         .join('');
+      location = conv.device.location.coordinates;
     }
   } else {
     message = '@relisten';
@@ -64,6 +66,8 @@ app.intent('Get Permission Intent', async (conv, params, permissionGranted) => {
     },
     sessionId: session
   };
+
+  if (location) payload.message.location = location;
 
   await systalk(conv, payload);
 });
