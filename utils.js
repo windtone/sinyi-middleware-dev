@@ -46,16 +46,13 @@ exports.listCard = (title, data) => {
 
   data.forEach((card, index) => {
     card.cLinkList.forEach(item => {
-      items.push({
-        info: {
-          key: `${index + 1}`
-        },
+      items[`${index}`] = {
         title: item.clText,
         description: item.clAlt
-      });
+      };
 
       if (card.cImageData) {
-        items[index].image = new Image({
+        items[`${index}`].image = new Image({
           url: card.cImageData ? card.cImageData.cImageUrl : '',
           alt: item.clAlt
         });
