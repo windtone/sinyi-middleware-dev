@@ -91,6 +91,7 @@ async function systalk(conv, payload) {
 }
 
 function systalkFallback(conv, json) {
+  console.log(json);
   json.messages.forEach(item => {
     switch (item.type) {
       // 一般對話
