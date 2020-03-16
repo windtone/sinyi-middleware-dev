@@ -47,7 +47,7 @@ exports.listCard = (title, data) => {
   data.forEach((card, index) => {
     card.cLinkList.forEach(item => {
       items[`${index}`] = {
-        title: `${index + 1}.item.clText`,
+        title: `${index + 1}.${item.clText}`,
         description: item.clAlt
       };
 
