@@ -44,14 +44,18 @@ exports.askPermission = (context, permissions) => {
 exports.listCard = (title, data) => {
   let items = {};
 
-  data.forEach(card => {
+  data.forEach((card, index) => {
     card.cLinkList.forEach(item => {
-      items[item.clText] = {
+      items.push({
+        info: {
+          key: `${index + 1}`
+        },
         title: item.clText,
         description: item.clAlt
-      };
+      });
+
       if (card.cImageData) {
-        items[item.clText].image = new Image({
+        items[index].image = new Image({
           url: card.cImageData ? card.cImageData.cImageUrl : '',
           alt: item.clAlt
         });
