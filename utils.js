@@ -140,3 +140,10 @@ exports.urlCard = data => {
     buttons: [new Button({ title: '詳細資訊', url: data.curl })]
   });
 };
+
+exports.baseCard = data => {
+  return new BasicCard({
+    title: data.cText,
+    formattedText: data.cAlt
+  });
+};
