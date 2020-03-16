@@ -143,7 +143,7 @@ exports.urlCard = data => {
 
 exports.baseCard = data => {
   return new BasicCard({
-    title: data.cText,
-    formattedText: data.cAlt
+    title: data.title,
+    formattedText: data.description
   });
 };

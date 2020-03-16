@@ -91,7 +91,6 @@ async function systalk(conv, payload) {
 }
 
 function systalkFallback(conv, json) {
-  console.log(json);
   json.messages.forEach(item => {
     switch (item.type) {
       // 一般對話
@@ -107,6 +106,7 @@ function systalkFallback(conv, json) {
             conv.ask(utils.urlListCard(item.data));
           }
         } else if (item.data[0].cTextType === '97') {
+          console.log(item.data);
           if (item.data.length === 1) {
             conv.ask(utils.baseCard(item.data[0]));
           } else {
